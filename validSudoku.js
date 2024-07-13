@@ -1,28 +1,25 @@
 var isValidSudoku = function(board) {
 
-    for (let v = 0; v < board.length; v ++){
-        const cache = {}
-        for (let h = 0; h < board[v].length; h++){
+    for (let v = 0; v < 9; v ++){
+        const vCache = {}
+        const hCache = {}
+        for (let h = 0; h < 9; h++){
 
-            const num = board[v][h]
-            if (!Number(num)) continue;
-            if (cache.hasOwnProperty(num)) return false;
-            else cache[num] = true;
+            const vNum = board[v][h]
+            const hNum = board[h][v]
 
-        }
-    }
-
-    for (let h = 0; h < board[0].length; h++){
-        const cache = {}
-        for (let v = 0; v < board.length; v++){
-            const num = board[v][h]
-            
-            if (!Number(num)) continue;
-            if (cache.hasOwnProperty(num)) return false;
-            else cache[num] = true;
+            if (Number(vNum)) {
+                if (vCache.hasOwnProperty(vNum)) return false
+                else vCache[vNum] = true;
+            }
+            if (Number(hNum)) {
+                if (hCache.hasOwnProperty(hNum)) return false
+                else hCache[hNum] = true;
+            }
 
         }
     }
+
 
     for (let v = 0; v < board.length; v+=3){
         for (let h = 0; h < board.length; h+=3){
@@ -44,14 +41,16 @@ var isValidSudoku = function(board) {
     return true
 };
 
+
+
 console.log(isValidSudoku([
-["7",".",".",".","4",".",".",".","."],
-[".",".",".","8","6","5",".",".","."],
-[".","1",".","2",".",".",".",".","."],
-[".",".",".",".",".","9",".",".","."],
-[".",".",".",".","5",".","5",".","."],
-[".",".",".",".",".",".",".",".","."],
-[".",".",".",".",".",".","2",".","."],
-[".",".",".",".",".",".",".",".","."],
-[".",".",".",".",".",".",".",".","."]
+["5","3",".",".","7",".",".",".","."],
+["6",".",".","1","9","5",".",".","."],
+[".","9","8",".",".",".",".","6","."],
+["8",".",".",".","6",".",".",".","3"],
+["4",".",".","8",".","3",".",".","1"],
+["7",".",".",".","2",".",".",".","6"],
+[".","6",".",".",".",".","2","8","."],
+[".",".",".","4","1","9",".",".","5"],
+[".",".",".",".","8",".",".","7","9"]
 ]))
